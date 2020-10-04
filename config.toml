@@ -1,0 +1,10 @@
+client_id = 'f20605cf-927f-4f57-bfef-3b1738ed0871'
+client_secret = 'rVsI96_DUWbz3V15M2CP2IMv3-2c_~.5.X'
+redirect_uri = 'https://dev.songe.li/'
+
+region = 'cn-hongkong'
+# https://github.com/ali-sdk/ali-oss#data-regions
+bucket = 'severless-oneindex-a9f5f7'
+oauthFileName = 'Microsoft-Graph-Auth.json'
+
+
