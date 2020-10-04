@@ -2,7 +2,7 @@
  * @Date: 2020-10-03 20:59:04
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-04 15:57:54
+ * @LastEditTime: 2020-10-04 16:43:29
  */
 
 import { promises as fs, readFileSync } from 'fs';
@@ -11,6 +11,7 @@ import fetch from 'node-fetch';
 import TOML from '@iarna/toml';
 import yaml from 'js-yaml';
 import { URLSearchParams } from 'url';
+import { assert } from 'console';
 
 // console.log(process.argv);
 // process.exit();
@@ -73,10 +74,12 @@ const deloyEnv = {
 };
 
 async function main() {
-    await fs.writeFile('./template.yml', yaml.safeDump(template), 'utf-8');
+    await client.listBuckets({ 'max-keys': 1 });
+    // 账号信息不正确将会抛出异常
     try {
         await client.putBucket(bucket);
     } catch {}
+    await fs.writeFile('./template.yml', yaml.safeDump(template), 'utf-8');
     client.useBucket(bucket);
     const response = await fetch(
         'https://login.microsoftonline.com/common/oauth2/v2.0/token',
@@ -91,6 +94,7 @@ async function main() {
             }),
         }
     );
+    assert(response.ok, await response.text());
     await client.put(oauthFileName, await response.buffer());
 
     const envText: string[] = [];

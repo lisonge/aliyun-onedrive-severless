@@ -4,9 +4,9 @@ name: deloy-aliyun-severless
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-on:
-  push:
-    branches: []
+# on:
+#   push:
+#     branches: [main]
   # schedule:
   #   # * is a special character in YAML so you have to quote this string
   #   - cron:  '*/55 * * * *'
@@ -35,8 +35,11 @@ jobs:
           node-version: '12'
       - run: npm install
       - run: npm install --only=dev
+      
+      - name: compile ./src/ts to ./dist/js
+        run: npm run compile
 
-      - name: init deloy environment
+      - name: init aliyun oss environment
         shell: bash
         env:
           ALIYUN_ACCOUNT_ID: ${{ secrets.ALIYUN_ACCOUNT_ID }}
@@ -44,9 +47,6 @@ jobs:
           ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
           ONEDRIVE_REFRESH_TOKEN: ${{ secrets.ONEDRIVE_REFRESH_TOKEN }}
         run: npx ts-node "./deloy.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_REFRESH_TOKEN"
-      
-      - name: compile ./src/ts to ./dist/js
-        run: npm run compile
       
       - name: global install @alicloud/fun then upload files to aliyun
         run: |

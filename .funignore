@@ -1,6 +1,3 @@
-node_modules/@types
-node_modules/typescript
-node_modules/ts-node
 node_modules/**/*.ts
 node_modules/**/*.md
 node_modules/**/*.yml
@@ -22,8 +19,11 @@ node_modules/**/.eslintignore
 node_modules/**/.editorconfig
 node_modules/**/.jslintrc
 node_modules/**/Makefile
-node_modules/@iarna/toml
 
+node_modules/@types
+node_modules/typescript
+node_modules/ts-node
+node_modules/@iarna/toml
 
 /src
 !node_modules/**/src
@@ -40,3 +40,6 @@ node_modules/@iarna/toml
 /.funignore
 /.gitignore
 /template.yml
+/deloy.ts
+
+# 忽略方式与gitignore部分不一致
