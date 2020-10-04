@@ -2,7 +2,7 @@
  * @Date: 2020-10-04 17:24:47
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-04 17:59:05
+ * @LastEditTime: 2020-10-04 18:01:23
 -->
 
 # aliyun-onedrive-severless
@@ -39,3 +39,5 @@ Fork 本项目, 在新项目/settings/secrets/new 界面添加之前获得的信
 | ALIYUN_ACCESS_KEY_ID     | accessKeyId     |
 | ALIYUN_ACCESS_KEY_SECRET | accessKeySecret |
 | ONEDRIVE_REFRESH_TOKEN   | refresh_token   |
+
+在项目actions界面运行构建脚本
