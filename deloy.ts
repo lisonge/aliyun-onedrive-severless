@@ -2,7 +2,7 @@
  * @Date: 2020-10-03 20:59:04
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-04 17:20:48
+ * @LastEditTime: 2020-10-04 18:59:27
  */
 
 import { promises as fs, readFileSync } from 'fs';
@@ -42,7 +42,7 @@ const {
 const grant_type = 'refresh_token';
 
 // @ts-ignore
-const { EnvironmentVariables } = template.Resources['aliyun-severless'][
+const { EnvironmentVariables } = template.Resources['aliyun-severless-b395ab'][
     'onedrive-severless'
 ].Properties;
 Object.assign(EnvironmentVariables, {
