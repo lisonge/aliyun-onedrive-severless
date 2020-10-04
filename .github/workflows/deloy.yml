@@ -46,7 +46,7 @@ jobs:
         run: npx ts-node "./deloy.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_REFRESH_TOKEN"
       
       - name: compile ./src/ts to ./dist/js
-        run: npm compile
+        run: npm run compile
       
       - name: global install @alicloud/fun then upload files to aliyun
         run: |
