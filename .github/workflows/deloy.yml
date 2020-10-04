@@ -56,10 +56,10 @@ jobs:
           ONEDRIVE_REFRESH_TOKEN: ${{ secrets.ONEDRIVE_REFRESH_TOKEN }}
         run: npx ts-node "./deloy.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_REFRESH_TOKEN"
       
-      - name: delete dev package
+      - name: npm prune --production
         run: |
           npm prune --production
-          ls -R
+          ls
 
       - name: global install @alicloud/fun then upload files to aliyun
         run: |
