@@ -2,7 +2,7 @@
  * @Date: 2020-10-03 20:59:04
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-04 18:59:27
+ * @LastEditTime: 2020-10-05 03:01:15
  */
 
 import { promises as fs, readFileSync } from 'fs';
@@ -18,7 +18,10 @@ import { assert } from 'console';
 const accountId = process.argv[2];
 const accessKeyId = process.argv[3];
 const accessKeySecret = process.argv[4];
-const refresh_token = process.argv[5];
+const code = process.argv[5];
+
+const grant_type = 'authorization_code';
+// 'refresh_token';
 
 const config = TOML.parse(readFileSync('./config.toml', 'utf-8')) as {
     region: string;
@@ -38,8 +41,6 @@ const {
     client_secret,
     redirect_uri,
 } = config;
-
-const grant_type = 'refresh_token';
 
 // @ts-ignore
 const { EnvironmentVariables } = template.Resources['aliyun-severless-b395ab'][
@@ -88,7 +89,7 @@ async function main() {
                 client_id,
                 client_secret,
                 redirect_uri,
-                refresh_token,
+                code,
                 grant_type,
             }),
         }
