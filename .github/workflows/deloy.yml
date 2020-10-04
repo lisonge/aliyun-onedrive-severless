@@ -7,7 +7,7 @@ name: deloy-aliyun-severless
 on:
   push:
     branches: [main]
-    
+
   # workflow_dispatch:
   #   inputs:
   #     logLevel:
@@ -56,9 +56,13 @@ jobs:
           ONEDRIVE_REFRESH_TOKEN: ${{ secrets.ONEDRIVE_REFRESH_TOKEN }}
         run: npx ts-node "./deloy.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_REFRESH_TOKEN"
       
-      - name: global install @alicloud/fun then upload files to aliyun
+      - name: delete dev package
         run: |
           npm prune --production
+          ls -R
+
+      - name: global install @alicloud/fun then upload files to aliyun
+        run: |
           sudo npm install @alicloud/fun -g
           sudo fun deploy -y
 
