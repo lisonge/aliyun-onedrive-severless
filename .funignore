@@ -41,5 +41,6 @@ node_modules/@iarna/toml
 /.gitignore
 /template.yml
 /deloy.ts
+/*.md
 
 # 忽略方式与gitignore部分不一致
