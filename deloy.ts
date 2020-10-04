@@ -2,7 +2,7 @@
  * @Date: 2020-10-03 20:59:04
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-04 16:43:29
+ * @LastEditTime: 2020-10-04 17:20:48
  */
 
 import { promises as fs, readFileSync } from 'fs';
@@ -79,7 +79,6 @@ async function main() {
     try {
         await client.putBucket(bucket);
     } catch {}
-    await fs.writeFile('./template.yml', yaml.safeDump(template), 'utf-8');
     client.useBucket(bucket);
     const response = await fetch(
         'https://login.microsoftonline.com/common/oauth2/v2.0/token',
@@ -94,8 +93,9 @@ async function main() {
             }),
         }
     );
-    assert(response.ok, await response.text());
-    await client.put(oauthFileName, await response.buffer());
+    const bf = await response.buffer()
+    // assert(response.ok, bf.toString('utf-8'));
+    await client.put(oauthFileName, bf);
 
     const envText: string[] = [];
     for (const k in deloyEnv) {
@@ -103,6 +103,7 @@ async function main() {
         envText.push(`${k}=${deloyEnv[k]}`);
     }
     await fs.writeFile('./.env', envText.join('\n'), 'utf-8');
+    await fs.writeFile('./template.yml', yaml.safeDump(template), 'utf-8');
     console.log('finish project deloy init action');
 }
 
