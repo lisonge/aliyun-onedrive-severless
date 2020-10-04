@@ -2,7 +2,7 @@
  * @Date: 2020-09-29 21:15:02
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-03 18:43:25
+ * @LastEditTime: 2020-10-04 17:09:22
  */
 
 import stream from 'stream';
@@ -32,6 +32,7 @@ interface Service {
 }
 
 // https://help.aliyun.com/document_detail/156876.html
+// use online tool http://json2ts.com/
 export interface Context {
     requestId: string;
     credentials: Credentials;
@@ -48,7 +49,7 @@ export interface Request extends internal.Readable {
     queries: { [key: string]: string };
     url: string;
     clientIP: string;
-    method: "GET"|"POST";
+    method: 'GET' | 'POST';
 }
 
 export interface Response {
@@ -57,7 +58,11 @@ export interface Response {
     deleteHeader: (headerKey: string) => void;
     send: (body: string | stream.Readable | Buffer) => void;
 }
-interface HandledInvocationError {}
+
+interface HandledInvocationError extends Error {
+    // i do not know what its [internal realization] is
+}
+
 // https://help.aliyun.com/document_detail/156876.html
 export interface Callback {
     (error: null, data: Buffer): Buffer;

@@ -4,9 +4,17 @@ name: deloy-aliyun-severless
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-# on:
-#   push:
-#     branches: [main]
+on:
+  push:
+    branches: [main]
+    
+  # workflow_dispatch:
+  #   inputs:
+  #     logLevel:
+  #       description: 'Log level'     
+  #       required: true
+  #       default: 'warning'
+
   # schedule:
   #   # * is a special character in YAML so you have to quote this string
   #   - cron:  '*/55 * * * *'
