@@ -2,7 +2,7 @@
  * @Date: 2020-10-01 15:28:35
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-04 14:26:18
+ * @LastEditTime: 2020-10-04 18:12:40
  */
 
 import OSS from 'ali-oss';
@@ -69,7 +69,7 @@ async function refreshToken() {
         method: 'POST',
         body: new URLSearchParams(data),
     });
-    assert(response.ok, await response.text())
+    // assert(response.ok, await response.text())
     syncWithNewToken(await response.json());
 }
 
