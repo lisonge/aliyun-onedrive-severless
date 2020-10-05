@@ -2,7 +2,7 @@
  * @Date: 2020-10-03 20:59:04
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-06 02:16:46
+ * @LastEditTime: 2020-10-06 02:24:49
  */
 
 import { promises as fs, readFileSync } from 'fs';
@@ -117,7 +117,7 @@ async function main() {
         'scope',
         'access_token',
     ].every((v) => v in auth);
-    console.assert(authOk, authOk);
+    console.assert(authOk, auth);
 
     // 创建存储库并写入令牌文件
     try {
