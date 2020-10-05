@@ -2,7 +2,7 @@
  * @Date: 2020-10-03 20:59:04
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-05 13:50:28
+ * @LastEditTime: 2020-10-06 02:16:46
  */
 
 import { promises as fs, readFileSync } from 'fs';
@@ -86,10 +86,7 @@ const deloyEnv = {
 async function main() {
     await client.listBuckets({ 'max-keys': 1 });
     // 账号信息不正确将会抛出异常
-    try {
-        await client.putBucket(bucket);
-    } catch {}
-    client.useBucket(bucket);
+
     const response = await fetch(
         'https://login.microsoftonline.com/common/oauth2/v2.0/token',
         {
@@ -105,6 +102,28 @@ async function main() {
     );
     const bf = await response.buffer();
     // assert(response.ok, bf.toString('utf-8'));
+    const auth = JSON.parse(bf.toString('utf-8')) as {
+        token_type: string;
+        expires_in: number;
+        scope: string;
+        access_token: string;
+        refresh_token: string;
+    };
+
+    const authOk = [
+        'refresh_token',
+        'token_type',
+        'expires_in',
+        'scope',
+        'access_token',
+    ].every((v) => v in auth);
+    console.assert(authOk, authOk);
+
+    // 创建存储库并写入令牌文件
+    try {
+        await client.putBucket(bucket);
+    } catch {}
+    client.useBucket(bucket);
     await client.put(oauthFileName, bf);
 
     const envText: string[] = [];
