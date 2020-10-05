@@ -37,6 +37,7 @@ node_modules/@iarna/toml
 
 /config.toml
 /.env
+/.fun
 /.funignore
 /.gitignore
 /template.yml

@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: deloy-aliyun-severless
+name: deloy-aliyun-severless-by-manual
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -10,8 +10,8 @@ on:
 
   workflow_dispatch:
     inputs:
-      graphCode:
-        description: 'Graph Code'     
+      authorizationCode:
+        description: 'authorization Code'
         required: true
         # default: 'warning'
 
@@ -53,8 +53,8 @@ jobs:
           ALIYUN_ACCOUNT_ID: ${{ secrets.ALIYUN_ACCOUNT_ID }}
           ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
           ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
-          ONEDRIVE_GRAPH_CODE: ${{ github.event.inputs.graphCode }}
-        run: npx ts-node "./deloy.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_GRAPH_CODE"
+          ONEDRIVE_CODE: ${{ github.event.inputs.authorizationCode }}
+        run: npx ts-node "./deloy.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_CODE" "--authorization_code"
       
       - name: npm prune --production
         run: |

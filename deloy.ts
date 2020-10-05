@@ -2,7 +2,7 @@
  * @Date: 2020-10-03 20:59:04
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-05 03:01:15
+ * @LastEditTime: 2020-10-05 13:50:28
  */
 
 import { promises as fs, readFileSync } from 'fs';
@@ -11,17 +11,26 @@ import fetch from 'node-fetch';
 import TOML from '@iarna/toml';
 import yaml from 'js-yaml';
 import { URLSearchParams } from 'url';
-import { assert } from 'console';
+// import { assert } from 'console';
 
 // console.log(process.argv);
 // process.exit();
 const accountId = process.argv[2];
 const accessKeyId = process.argv[3];
 const accessKeySecret = process.argv[4];
-const code = process.argv[5];
+const code = {} as {
+    refresh_token?: string;
+    code?: string;
+};
 
-const grant_type = 'authorization_code';
-// 'refresh_token';
+let grant_type = 'refresh_token';
+if (process.argv.includes('--authorization_code')) {
+    grant_type = 'authorization_code';
+    code.code = process.argv[5];
+} else {
+    code.refresh_token = process.argv[5];
+}
+// '';
 
 const config = TOML.parse(readFileSync('./config.toml', 'utf-8')) as {
     region: string;
@@ -89,12 +98,12 @@ async function main() {
                 client_id,
                 client_secret,
                 redirect_uri,
-                code,
+                ...code,
                 grant_type,
             }),
         }
     );
-    const bf = await response.buffer()
+    const bf = await response.buffer();
     // assert(response.ok, bf.toString('utf-8'));
     await client.put(oauthFileName, bf);
 
