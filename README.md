@@ -2,7 +2,7 @@
  * @Date: 2020-10-04 17:24:47
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-04 18:01:23
+ * @LastEditTime: 2020-10-06 02:22:02
 -->
 
 # aliyun-onedrive-severless
@@ -27,7 +27,7 @@
 
 ### Onderive
 
-**refresh_token** 在[此界面](https://dev.songe.li/)获取, 获取界面未做好
+**refresh_token** 在[此界面](https://dev.songe.li/aliyun-onedrive-severless/graph-auth-pages/index.html)获取
 
 ## 部署
 
@@ -40,4 +40,10 @@ Fork 本项目, 在新项目/settings/secrets/new 界面添加之前获得的信
 | ALIYUN_ACCESS_KEY_SECRET | accessKeySecret |
 | ONEDRIVE_REFRESH_TOKEN   | refresh_token   |
 
-在项目actions界面运行构建脚本
+在项目 actions 界面运行名称为**deloy-push.yml**的构建脚本
+
+不出意外应该部署成功
+
+## 其他
+
+在[此处](https://account.live.com/consent/Manage)取消应用名称为**aliyun-onedrive-severless**的授权
