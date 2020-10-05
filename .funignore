@@ -43,5 +43,6 @@ node_modules/@iarna/toml
 /template.yml
 /deloy.ts
 /*.md
+/graph-auth-pages
 
 # 忽略方式与gitignore部分不一致
