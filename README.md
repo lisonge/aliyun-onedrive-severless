@@ -2,7 +2,7 @@
  * @Date: 2020-10-04 17:24:47
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-06 20:02:12
+ * @LastEditTime: 2020-10-06 20:03:32
 -->
 
 # aliyun-onedrive-severless
@@ -74,7 +74,9 @@
 
 ## 前端
 
-本项目仅为**后端**代理访问, 可在[config.toml](./config.toml)设置允许访问的 API, [在 Microsoft Graph 中使用文件 - Microsoft Graph v1.0](https://docs.microsoft.com/zh-cn/graph/api/resources/onedrive?view=graph-rest-1.0)获取你想要的 API
+本项目仅为**后端**代理访问, 可在[config.toml](./config.toml)设置允许访问的 API
+
+[在 Microsoft Graph 中使用文件 - Microsoft Graph v1.0](https://docs.microsoft.com/zh-cn/graph/api/resources/onedrive?view=graph-rest-1.0)获取你想要的 API
 
 ## 其他
 
