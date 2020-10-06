@@ -2,7 +2,7 @@
  * @Date: 2020-10-04 17:24:47
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-06 17:07:19
+ * @LastEditTime: 2020-10-06 17:19:34
 -->
 
 # aliyun-onedrive-severless
@@ -15,17 +15,32 @@
 
 ### Aliyun
 
-**accountId**: 在[账号管理-安全设置](https://account.console.aliyun.com/#/secure) 账号 ID 在头像右侧第二行文字
+<details>
 
-**accessKeyId accessKeySecret**:
+<summary>accountId</summary>
+
+在[账号管理-安全设置](https://account.console.aliyun.com/#/secure) 账号 ID 在头像右侧第二行文字
+
+</details>
+
+<details>
+
+<summary>accessKeyId accessKeySecret</summary>
 
 方式 1: 在[RAM 访问控制 - AccessKey 管理](https://ram.console.aliyun.com/manage/ak) 创建 AccessKey
 
-方式 2: 在[RAM 访问控制 - 用户](https://ram.console.aliyun.com/users/new) 创建子用户, 随意填写登录名及显示名，勾选**编程访问**，点击创建, 必须添加权限[AliyunFCFullAccess, AliyunOSSFullAccess]
+方式 2: 在[RAM 访问控制 - 用户](https://ram.console.aliyun.com/users/new) 创建子用户, 随意填写登录名及显示名，勾选编程访问，点击创建, 添加权限[AliyunFCFullAccess, AliyunOSSFullAccess]
+
+</details>
 
 ### Onderive
 
-**refresh_token**: 在[graph-auth-pages](https://dev.songe.li/aliyun-onedrive-severless/graph-auth-pages/index.html)获取授权令牌
+<details>
+<summary>refresh_token</summary>
+
+在[graph-auth-pages](https://dev.songe.li/aliyun-onedrive-severless/graph-auth-pages/index.html)获取授权令牌
+
+</details>
 
 ## 部署
 
