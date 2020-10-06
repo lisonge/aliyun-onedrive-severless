@@ -5,65 +5,71 @@ name: deloy-aliyun-severless-by-manual
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  # push:
-  #   branches: [main]
+    # push:
+    #   branches: [main]
+    workflow_dispatch:
+        inputs:
+            ALIYUN_ACCOUNT_ID:
+                description: 'ALIYUN_ACCOUNT_ID'
+                required: true
+            ALIYUN_ACCESS_KEY_ID:
+                description: 'ALIYUN_ACCESS_KEY_ID'
+                required: true
+            ALIYUN_ACCESS_KEY_SECRET:
+                description: 'ALIYUN_ACCESS_KEY_SECRET'
+                required: true
+            ONEDRIVE_REFRESH_TOKEN:
+                description: 'ONEDRIVE_REFRESH_TOKEN'
+                required: true
+                # default: 'warning'
 
-  workflow_dispatch:
-    inputs:
-      authorizationCode:
-        description: 'authorization Code'
-        required: true
-        # default: 'warning'
-
-  # schedule:
-  #   # * is a special character in YAML so you have to quote this string
-  #   - cron:  '*/55 * * * *'
-  # pull_request:
-  #   branches: [master]
+    # schedule:
+    #   # * is a special character in YAML so you have to quote this string
+    #   - cron:  '*/55 * * * *'
+    # pull_request:
+    #   branches: [master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    # This workflow contains a single job called "build"
+    build:
+        # The type of runner that the job will run on
+        runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+            - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+            # Runs a single command using the runners shell
+            - name: Run a one-line script
+              run: echo Hello, world!
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: '12'
-      - run: npm install
-      - run: npm install --only=dev
-      
-      - name: compile ./src/ts to ./dist/js
-        run: npm run compile
+            - name: Setup Node.js environment
+              uses: actions/setup-node@v2.1.2
+              with:
+                  node-version: '12'
+            - run: npm install
+            - run: npm install --only=dev
 
-      - name: init aliyun oss environment
-        shell: bash
-        env:
-          ALIYUN_ACCOUNT_ID: ${{ secrets.ALIYUN_ACCOUNT_ID }}
-          ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-          ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
-          ONEDRIVE_CODE: ${{ github.event.inputs.authorizationCode }}
-        run: npx ts-node "./deloy.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_CODE" "--authorization_code"
-      
-      - name: npm prune --production
-        run: |
-          npm prune --production
-          ls
+            - name: compile ./src/ts to ./dist/js
+              run: npm run compile
 
-      - name: global install @alicloud/fun then upload files to aliyun
-        run: |
-          sudo npm install @alicloud/fun -g
-          sudo fun deploy -y
+            - name: init aliyun oss environment
+              shell: bash
+              env:
+                  ALIYUN_ACCOUNT_ID: ${{ github.event.inputs.ALIYUN_ACCOUNT_ID }}
+                  ALIYUN_ACCESS_KEY_ID: ${{ github.event.inputs.ALIYUN_ACCESS_KEY_ID }}
+                  ALIYUN_ACCESS_KEY_SECRET: ${{ github.event.inputs.ALIYUN_ACCESS_KEY_SECRET }}
+                  ONEDRIVE_REFRESH_TOKEN: ${{ github.event.inputs.ONEDRIVE_REFRESH_TOKEN }}
+              run: npx ts-node "./deloy.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_REFRESH_TOKEN" "--refresh_token"
 
+            - name: npm prune --production
+              run: |
+                  npm prune --production
+                  ls
 
+            - name: global install @alicloud/fun then upload files to aliyun
+              run: |
+                  sudo npm install @alicloud/fun -g
+                  sudo fun deploy -y

@@ -2,7 +2,7 @@
  * @Date: 2020-10-03 20:59:04
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-06 02:32:44
+ * @LastEditTime: 2020-10-06 15:55:42
  */
 
 import { promises as fs, readFileSync } from 'fs';
@@ -11,10 +11,20 @@ import fetch from 'node-fetch';
 import TOML from '@iarna/toml';
 import yaml from 'js-yaml';
 import { URLSearchParams } from 'url';
+import { AssertionError } from 'assert';
 // import { assert } from 'console';
 
 // console.log(process.argv);
 // process.exit();
+
+function assert(value: boolean, message: string) {
+    if (!value) {
+        throw new AssertionError({
+            message,
+        });
+    }
+}
+
 const accountId = process.argv[2];
 const accessKeyId = process.argv[3];
 const accessKeySecret = process.argv[4];
@@ -116,7 +126,7 @@ async function main() {
         'scope',
         'access_token',
     ].every((v) => v in auth);
-    console.assert(authOk, JSON.stringify(auth));
+    assert(authOk, JSON.stringify(auth));
 
     // 创建存储库并写入令牌文件
     try {
