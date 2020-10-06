@@ -2,7 +2,7 @@
  * @Date: 2020-10-04 17:24:47
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-06 16:37:08
+ * @LastEditTime: 2020-10-06 17:07:19
 -->
 
 # aliyun-onedrive-severless
@@ -15,40 +15,45 @@
 
 ### Aliyun
 
-在[此页面](https://account.console.aliyun.com/#/secure)获取**accountId**
+**accountId**: 在[账号管理-安全设置](https://account.console.aliyun.com/#/secure) 账号 ID 在头像右侧第二行文字
 
-在[此页面](https://ram.console.aliyun.com/users)创建用户
+**accessKeyId accessKeySecret**:
 
-随意填写登录名及显示名，勾选编程访问，点击创建
+方式 1: 在[RAM 访问控制 - AccessKey 管理](https://ram.console.aliyun.com/manage/ak) 创建 AccessKey
 
-此时获得此用户的**accessKeyId**和**accessKeySecret**
-
-另外需要对此用户添加权限[AliyunFCFullAccess, AliyunOSSFullAccess]
+方式 2: 在[RAM 访问控制 - 用户](https://ram.console.aliyun.com/users/new) 创建子用户, 随意填写登录名及显示名，勾选**编程访问**，点击创建, 必须添加权限[AliyunFCFullAccess, AliyunOSSFullAccess]
 
 ### Onderive
 
-**refresh_token** 在[此界面](https://dev.songe.li/aliyun-onedrive-severless/graph-auth-pages/index.html)获取该授权令牌
+**refresh_token**: 在[graph-auth-pages](https://dev.songe.li/aliyun-onedrive-severless/graph-auth-pages/index.html)获取授权令牌
 
 ## 部署
 
-首先 Fork 本项目, 在新项目的 Action 界面有两种部署方式
+首先 Fork 本项目, 在新项目的 Action 界面有两种部署方式, 以下操作在 Fork 的新项目界面进行
 
-下面将要输入的信息对应如下, 以下操作在 Fork 的新项目界面进行
+### 通过 Inputs
 
-| Name                     | Value           |
+进入[Actions deloy-by-inputs](./actions?query=workflow%3Adeloy-by-inputs), 点击右侧**Run workflow**输入对应信息
+
+| 输入名                   | 输入值          |
 | ------------------------ | --------------- |
 | ALIYUN_ACCOUNT_ID        | accountId       |
 | ALIYUN_ACCESS_KEY_ID     | accessKeyId     |
 | ALIYUN_ACCESS_KEY_SECRET | accessKeySecret |
 | ONEDRIVE_REFRESH_TOKEN   | refresh_token   |
 
-### 通过单次输入
-
-进入[Actions deloy-by-inputs](./actions?query=workflow%3Adeloy-by-inputs), 点击右侧**Run workflow**输入对应信息
+然后点击**Run workflow**运行
 
 ### 通过 Secrets
 
 进入项目[Secrets](./settings/secrets/new)界面添加你之前获得的信息
+
+| 添加名                   | 添加值          |
+| ------------------------ | --------------- |
+| ALIYUN_ACCOUNT_ID        | accountId       |
+| ALIYUN_ACCESS_KEY_ID     | accessKeyId     |
+| ALIYUN_ACCESS_KEY_SECRET | accessKeySecret |
+| ONEDRIVE_REFRESH_TOKEN   | refresh_token   |
 
 进入[Actions deloy-by-secrets](./actions?query=workflow%3Adeloy-by-secrets), 点击右侧**Run workflow**运行此项目
 
