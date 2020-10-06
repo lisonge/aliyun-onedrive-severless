@@ -1,19 +1,27 @@
 # This is a basic workflow to help you get started with Actions
 
-name: deloy-aliyun-severless-by-push
+name: deloy-by-inputs
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
     # push:
-    #     branches: [main]
-
+    #   branches: [main]
     workflow_dispatch:
         inputs:
-            placeholder:
-                description: 'anything to input'
-                required: false
-                default: 'placeholder'
+            ALIYUN_ACCOUNT_ID:
+                description: 'ALIYUN_ACCOUNT_ID'
+                required: true
+            ALIYUN_ACCESS_KEY_ID:
+                description: 'ALIYUN_ACCESS_KEY_ID'
+                required: true
+            ALIYUN_ACCESS_KEY_SECRET:
+                description: 'ALIYUN_ACCESS_KEY_SECRET'
+                required: true
+            ONEDRIVE_REFRESH_TOKEN:
+                description: 'ONEDRIVE_REFRESH_TOKEN'
+                required: true
+                # default: 'warning'
 
     # schedule:
     #   # * is a special character in YAML so you have to quote this string
@@ -25,8 +33,6 @@ on:
 jobs:
     # This workflow contains a single job called "build"
     build:
-        # env:
-        #     test_key: ${{ secrets.ONEDRIVE_REFRESH_TOKEN }}
         # The type of runner that the job will run on
         runs-on: ubuntu-latest
 
@@ -52,16 +58,17 @@ jobs:
             - name: init aliyun oss environment
               shell: bash
               env:
-                  ALIYUN_ACCOUNT_ID: ${{ secrets.ALIYUN_ACCOUNT_ID }}
-                  ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-                  ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
-                  ONEDRIVE_REFRESH_TOKEN: ${{ secrets.ONEDRIVE_REFRESH_TOKEN }}
+                  ALIYUN_ACCOUNT_ID: ${{ github.event.inputs.ALIYUN_ACCOUNT_ID }}
+                  ALIYUN_ACCESS_KEY_ID: ${{ github.event.inputs.ALIYUN_ACCESS_KEY_ID }}
+                  ALIYUN_ACCESS_KEY_SECRET: ${{ github.event.inputs.ALIYUN_ACCESS_KEY_SECRET }}
+                  ONEDRIVE_REFRESH_TOKEN: ${{ github.event.inputs.ONEDRIVE_REFRESH_TOKEN }}
               run: npx ts-node "./deloy.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_REFRESH_TOKEN" "--refresh_token"
 
             - name: npm prune --production
               run: |
                   npm prune --production
                   ls
+
             - name: global install @alicloud/fun then upload files to aliyun
               run: |
                   sudo npm install @alicloud/fun -g
