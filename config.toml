@@ -7,6 +7,8 @@ region = 'cn-hongkong'
 bucket = 'severless-oneindex-a9f5f7'
 oauthFileName = 'Microsoft-Graph-Auth.json'
 
-
+allowPathArr = [
+    ''
+]
 
 

@@ -2,14 +2,14 @@
  * @Date: 2020-10-01 15:28:35
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-04 18:12:40
+ * @LastEditTime: 2020-10-06 18:50:19
  */
 
 import OSS from 'ali-oss';
 import fetch from 'node-fetch';
 import { OauthToken } from './types';
 import { URLSearchParams } from 'url';
-import { assert } from 'console';
+// import { assert } from 'console';
 
 const accessKeyId = process.env['accessKey_Id']!;
 const accessKeySecret = process.env['accessKey_Secret']!;
