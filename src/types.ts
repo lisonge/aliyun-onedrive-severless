@@ -2,7 +2,7 @@
  * @Date: 2020-09-29 21:15:02
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-04 17:09:22
+ * @LastEditTime: 2020-10-07 14:45:54
  */
 
 import stream from 'stream';
@@ -76,4 +76,18 @@ export interface OauthToken {
     expires_in: number;
     access_token: string;
     refresh_token: string;
+}
+
+export interface Config {
+    accessKey_id: string;
+    accessKey_secret: string;
+    account_id: string;
+    allow_paths: string[];
+    author: string;
+    bucket: string;
+    client_id: string;
+    client_secret: string;
+    oauth_file_name: string;
+    redirect_uri: string;
+    region: string;
 }

@@ -35,13 +35,14 @@ node_modules/@iarna/toml
 /tsconfig.json
 /package-lock.json
 
-/config.toml
+# /config.toml
 /.env
 /.fun
 /.funignore
 /.gitignore
 /template.yml
-/deloy.ts
+/deloy
+!node_modules/**/src
 /*.md
 /graph-auth-pages
 

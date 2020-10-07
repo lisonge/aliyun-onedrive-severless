@@ -4,7 +4,7 @@ Resources:
   aliyun-severless-b395ab:
     Type: 'Aliyun::Serverless::Service'
     Properties:
-      Description: helloworld
+      Description: 'onedrive serverless'
     onedrive-severless:
       Type: 'Aliyun::Serverless::Function'
       Properties:

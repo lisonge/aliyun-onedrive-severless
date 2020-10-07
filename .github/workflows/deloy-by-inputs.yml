@@ -62,7 +62,7 @@ jobs:
                   ALIYUN_ACCESS_KEY_ID: ${{ github.event.inputs.ALIYUN_ACCESS_KEY_ID }}
                   ALIYUN_ACCESS_KEY_SECRET: ${{ github.event.inputs.ALIYUN_ACCESS_KEY_SECRET }}
                   ONEDRIVE_REFRESH_TOKEN: ${{ github.event.inputs.ONEDRIVE_REFRESH_TOKEN }}
-              run: npx ts-node "./deloy.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_REFRESH_TOKEN" "--refresh_token"
+              run: npx ts-node "./deloy/index.ts" "$ALIYUN_ACCOUNT_ID" "$ALIYUN_ACCESS_KEY_ID" "$ALIYUN_ACCESS_KEY_SECRET" "$ONEDRIVE_REFRESH_TOKEN" "--refresh_token"
 
             - name: npm prune --production
               run: |

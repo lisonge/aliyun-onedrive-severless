@@ -2,7 +2,7 @@
  * @Date: 2020-10-04 17:24:47
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-06 20:06:18
+ * @LastEditTime: 2020-10-07 13:37:11
 -->
 
 # aliyun-onedrive-severless
@@ -57,7 +57,7 @@
 | ALIYUN_ACCESS_KEY_SECRET | accessKeySecret |
 | ONEDRIVE_REFRESH_TOKEN   | refresh_token   |
 
-然后点击**Run workflow**运行
+然后点击右侧**Run workflow**可部署此项目
 
 ### 通过 Secrets
 
@@ -72,16 +72,20 @@
 
 进入[Actions deloy-by-secrets](../../actions?query=workflow%3Adeloy-by-secrets), 点击右侧**Run workflow**可部署此项目
 
+如果按照默认区域部署, 云函数链接在[函数计算控制台](https://fc.console.aliyun.com/fc/service/cn-hongkong/aliyun-severless-b395ab/function/onedrive-severless/overview)
+
 ## 前端
 
 本项目仅为**后端**代理访问, 可在[config.toml](./config.toml)设置允许访问的 API
 
 [在 Microsoft Graph 中使用文件](https://docs.microsoft.com/zh-cn/graph/api/resources/onedrive) 可获取所有 API
 
+测试原始 API: [Graph 浏览器](https://developer.microsoft.com/zh-cn/graph/graph-explorer) 可以发出请求并查看 Microsoft Graph 的响应
+
 ## 其他
 
 该项目默认部署在香港, 可在[config.toml](./config.toml) 更改部署区域, 区域对应节点名在[ali-oss#data-regions](https://github.com/ali-sdk/ali-oss#data-regions)查看, 但**不建议**更改部署区域
 
-可在[你已授予访问权限的应用和服务](https://account.live.com/consent/Manage)取消应用名称为**aliyun-onedrive-severless**的授权, 之前的一切令牌都会失效
+可在[你已授予访问权限的应用和服务](https://account.live.com/consent/Manage)取消应用名称为**onedrive-severless-b73c4cc**的授权, 之前的一切令牌都会失效
 
 欢迎[issue](../../issues)和[pull](../../pulls)

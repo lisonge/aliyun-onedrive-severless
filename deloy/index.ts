@@ -2,14 +2,14 @@
  * @Date: 2020-10-03 20:59:04
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-06 15:55:42
+ * @LastEditTime: 2020-10-07 14:55:27
  */
 
 import { promises as fs, readFileSync } from 'fs';
 import OSS from 'ali-oss';
 import fetch from 'node-fetch';
 import TOML from '@iarna/toml';
-import yaml from 'js-yaml';
+// import yaml from 'js-yaml';
 import { URLSearchParams } from 'url';
 import { AssertionError } from 'assert';
 // import { assert } from 'console';
@@ -25,9 +25,10 @@ function assert(value: boolean, message: string) {
     }
 }
 
-const accountId = process.argv[2];
-const accessKeyId = process.argv[3];
-const accessKeySecret = process.argv[4];
+const account_id = process.argv[2];
+const accessKey_id = process.argv[3];
+const accessKey_secret = process.argv[4];
+
 const code = {} as {
     refresh_token?: string;
     code?: string;
@@ -50,9 +51,8 @@ const config = TOML.parse(readFileSync('./config.toml', 'utf-8')) as {
     client_secret: string;
     redirect_uri: string;
 };
-const template = yaml.safeLoad(readFileSync('./template.yml', 'utf8'));
 
-const {
+let {
     region,
     bucket,
     oauthFileName,
@@ -61,33 +61,44 @@ const {
     redirect_uri,
 } = config;
 
-// @ts-ignore
-const { EnvironmentVariables } = template.Resources['aliyun-severless-b395ab'][
-    'onedrive-severless'
-].Properties;
-Object.assign(EnvironmentVariables, {
-    account_Id: accountId,
-    accessKey_Id: accessKeyId,
-    accessKey_Secret: accessKeySecret,
-    region: `oss-${region}`,
-    bucket,
-    oauth_File_Name: oauthFileName,
-    client_id,
-    client_secret,
-    redirect_uri,
+if (region.startsWith('oss-')) {
+    region = region.substring(4);
+}
+
+Object.assign(config, {
+    account_id,
+    accessKey_id,
+    accessKey_secret,
 });
+
+// const template = yaml.safeLoad(readFileSync('./template.yml', 'utf8'));
+// // @ts-ignore
+// const { EnvironmentVariables } = template.Resources['aliyun-severless-b395ab'][
+//     'onedrive-severless'
+// ].Properties;
+// Object.assign(EnvironmentVariables, {
+//     account_Id: accountId,
+//     accessKey_Id: accessKeyId,
+//     accessKey_Secret: accessKeySecret,
+//     region: `oss-${region}`,
+//     bucket,
+//     oauth_File_Name: oauthFileName,
+//     client_id,
+//     client_secret,
+//     redirect_uri,
+// });
 
 const client = new OSS({
     region: `oss-${region}`,
-    accessKeyId,
-    accessKeySecret,
+    accessKeyId: accessKey_id,
+    accessKeySecret: accessKey_secret,
     bucket,
 });
 
-const deloyEnv = {
-    ACCOUNT_ID: accountId,
-    ACCESS_KEY_ID: accessKeyId,
-    ACCESS_KEY_SECRET: accessKeySecret,
+const funToolEnv = {
+    ACCOUNT_ID: account_id,
+    ACCESS_KEY_ID: accessKey_id,
+    ACCESS_KEY_SECRET: accessKey_secret,
     REGION: region,
     TIMEOUT: 30,
     RETRIES: 3,
@@ -136,12 +147,13 @@ async function main() {
     await client.put(oauthFileName, bf);
 
     const envText: string[] = [];
-    for (const k in deloyEnv) {
+    for (const k in funToolEnv) {
         // @ts-ignore
-        envText.push(`${k}=${deloyEnv[k]}`);
+        envText.push(`${k}=${funToolEnv[k]}`);
     }
     await fs.writeFile('./.env', envText.join('\n'), 'utf-8');
-    await fs.writeFile('./template.yml', yaml.safeDump(template), 'utf-8');
+    // await fs.writeFile('./template.yml', yaml.safeDump(template), 'utf-8');
+    await fs.writeFile('./config.toml', TOML.stringify(config), 'utf-8');
     console.log('finish project deloy init action');
 }
 

@@ -1,14 +1,28 @@
+author = 'https://github.com/lisonge'
+
 client_id = 'f20605cf-927f-4f57-bfef-3b1738ed0871'
 client_secret = 'rVsI96_DUWbz3V15M2CP2IMv3-2c_~.5.X'
-redirect_uri = 'https://dev.songe.li/'
+redirect_uri = 'https://lisonge.github.io/aliyun-onedrive-severless/'
 
-region = 'cn-hongkong'
 # https://github.com/ali-sdk/ali-oss#data-regions
+region = 'cn-hongkong'
+
 bucket = 'severless-oneindex-a9f5f7'
-oauthFileName = 'Microsoft-Graph-Auth.json'
+oauth_file_name = 'Microsoft-Graph-Auth.json'
 
-allowPathArr = [
-    ''
+accessKey_id = ''
+accessKey_secret = ''
+account_id = ''
+
+# https://docs.microsoft.com/zh-cn/graph/api/resources/onedrive
+allow_paths = [
+  '/v1.0/me/drive',
+  '/v1.0/me/drive/root/children',
+  '/v1.0/me/drive/items/{}',
+  '/v1.0/me/drive/root:/{}',
+  '/v1.0/me/drive/root:/{}:/children',
+  '/v1.0/drives/{}/root/children',
+  '/v1.0/drives/{}/items/{}/children',
+  '/v1.0/drives/{}/root:/{}:/children',
 ]
-
-
+# /v1.0/me/drive/root/search(q='jpg')?select=name,id,webUrl

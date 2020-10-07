@@ -2,7 +2,7 @@
  * @Date: 2020-10-01 15:28:35
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-06 18:50:19
+ * @LastEditTime: 2020-10-07 15:11:31
  */
 
 import OSS from 'ali-oss';
@@ -10,23 +10,25 @@ import fetch from 'node-fetch';
 import { OauthToken } from './types';
 import { URLSearchParams } from 'url';
 // import { assert } from 'console';
+import { globalConfig } from './common';
 
-const accessKeyId = process.env['accessKey_Id']!;
-const accessKeySecret = process.env['accessKey_Secret']!;
-
-const client_id = process.env['client_id']!;
-const client_secret = process.env['client_secret']!;
-const redirect_uri = process.env['redirect_uri']!;
-
-const region = process.env['region']!;
-// oss-cn-hongkong
-const bucket = process.env['bucket']!;
-const oauthFileName = process.env['oauth_File_Name']!;
-
+const {
+    accessKey_id,
+    accessKey_secret,
+    bucket,
+    client_id,
+    client_secret,
+    oauth_file_name,
+    redirect_uri,
+} = globalConfig;
+let { region } = globalConfig;
+if (!region.startsWith('oss-')) {
+    region = 'oss-' + region;
+}
 const client = new OSS({
     region,
-    accessKeyId,
-    accessKeySecret,
+    accessKeyId: accessKey_id,
+    accessKeySecret: accessKey_secret,
     bucket,
 });
 client.useBucket(bucket);
@@ -34,13 +36,13 @@ const oauth = {} as OauthToken;
 
 async function syncRemoteToken(data?: OauthToken) {
     const o = data ?? oauth;
-    await client.put(oauthFileName, Buffer.from(JSON.stringify(o), 'utf-8'));
+    await client.put(oauth_file_name, Buffer.from(JSON.stringify(o), 'utf-8'));
 }
 async function syncLocalToken(data?: OauthToken) {
     if (data) {
         Object.assign(oauth, data);
     } else {
-        const result = await client.get(oauthFileName);
+        const result = await client.get(oauth_file_name);
         const content = result.content as Buffer;
         Object.assign(oauth, JSON.parse(content.toString('utf-8')));
     }
