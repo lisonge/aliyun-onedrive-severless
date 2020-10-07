@@ -2,16 +2,16 @@
  * @Date: 2020-09-29 20:40:59
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-07 16:16:39
+ * @LastEditTime: 2020-10-07 16:30:52
  */
 
 import { Context, Request, Response, Callback } from './types';
 import { getAuthHeaders, refreshToken, syncLocalToken } from './auth';
 import { matchAllowRoute } from './utils';
+import { globalConfig } from './common';
 import getRawBody from 'raw-body';
 import { URL } from 'url';
 import fetch from 'node-fetch';
-import { AssertionError } from 'assert';
 
 const baseUrl = 'https://graph.microsoft.com';
 
@@ -30,9 +30,13 @@ export const handler = async (
 ) => {
     const { path } = req;
     if (!matchAllowRoute(path)) {
-        throw new AssertionError({
-            message: `${path} is not allow path`,
-        });
+        resp.setStatusCode(403);
+        resp.send(
+            `${path} is not allow path \n allow routes should be :\n ${globalConfig.allow_routes.join(
+                '\n'
+            )}`
+        );
+        return;
     }
     const u = new URL(baseUrl);
     u.pathname = path;

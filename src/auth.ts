@@ -2,14 +2,13 @@
  * @Date: 2020-10-01 15:28:35
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-07 16:12:03
+ * @LastEditTime: 2020-10-07 16:27:43
  */
 
 import OSS from 'ali-oss';
 import fetch from 'node-fetch';
 import { OauthToken } from './types';
 import { URLSearchParams } from 'url';
-// import { assert } from 'console';
 import { globalConfig } from './common';
 
 const {
