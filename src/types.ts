@@ -2,7 +2,7 @@
  * @Date: 2020-09-29 21:15:02
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-07 14:45:54
+ * @LastEditTime: 2020-10-07 15:26:27
  */
 
 import stream from 'stream';
@@ -82,7 +82,7 @@ export interface Config {
     accessKey_id: string;
     accessKey_secret: string;
     account_id: string;
-    allow_paths: string[];
+    allow_routes: string[];
     author: string;
     bucket: string;
     client_id: string;

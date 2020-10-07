@@ -2,9 +2,9 @@
  * @Date: 2020-10-07 00:42:43
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-07 13:22:46
+ * @LastEditTime: 2020-10-07 15:27:38
  */
-
+import { globalConfig } from './common';
 function testRoutePath(route: string, path: string): boolean {
     const a1 = route.split('/');
     const a2 = path.split('/');
@@ -24,6 +24,12 @@ function testRoutePath(route: string, path: string): boolean {
 }
 
 function testComplexRoutePath(complexRoute: string, path: string): boolean {
+    if (!path.startsWith('/')) {
+        path = '/' + path;
+    }
+    if (!complexRoute.startsWith('/')) {
+        complexRoute = '/' + complexRoute;
+    }
     const strArr: string[] = [];
     for (let i = 0, flag = false; i < complexRoute.length; i++) {
         const el = complexRoute[i];
@@ -60,4 +66,8 @@ function testComplexRoutePath(complexRoute: string, path: string): boolean {
 
 // console.log(testComplexRoutePath(path1, path2));
 
-export { testComplexRoutePath };
+function matchAllowRoute(path: string): boolean {
+    return globalConfig.allow_routes.some((v) => testRoutePath(v, path));
+}
+
+export { matchAllowRoute };
