@@ -2,18 +2,14 @@
  * @Date: 2020-10-07 14:50:03
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-07 15:08:33
+ * @LastEditTime: 2020-10-07 16:15:59
  */
 import { Config } from './types';
 import TOML from '@iarna/toml';
-import { promises as fs } from 'fs';
+import { readFileSync } from 'fs';
+
 
 const globalConfig = {} as Config;
+Object.assign(globalConfig, TOML.parse(readFileSync('./config.toml', 'utf-8')));
 
-async function initGlobalConfig() {
-    const text = await fs.readFile('./config.toml', 'utf-8');
-    const cf = TOML.parse(text);
-    Object.assign(globalConfig, cf);
-}
-
-export { globalConfig, initGlobalConfig };
+export { globalConfig };

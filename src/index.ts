@@ -2,12 +2,11 @@
  * @Date: 2020-09-29 20:40:59
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-07 15:31:13
+ * @LastEditTime: 2020-10-07 16:16:39
  */
 
 import { Context, Request, Response, Callback } from './types';
 import { getAuthHeaders, refreshToken, syncLocalToken } from './auth';
-import { initGlobalConfig } from './common';
 import { matchAllowRoute } from './utils';
 import getRawBody from 'raw-body';
 import { URL } from 'url';
@@ -20,7 +19,6 @@ export const initializer = async function (
     context: Context,
     callback: Callback
 ) {
-    await initGlobalConfig();
     await syncLocalToken();
     callback(null, 'success');
 };

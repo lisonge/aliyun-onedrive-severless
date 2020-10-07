@@ -2,9 +2,11 @@
  * @Date: 2020-10-07 00:42:43
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-07 15:27:38
+ * @LastEditTime: 2020-10-07 15:59:34
  */
 import { globalConfig } from './common';
+
+
 function testRoutePath(route: string, path: string): boolean {
     const a1 = route.split('/');
     const a2 = path.split('/');
@@ -67,7 +69,7 @@ function testComplexRoutePath(complexRoute: string, path: string): boolean {
 // console.log(testComplexRoutePath(path1, path2));
 
 function matchAllowRoute(path: string): boolean {
-    return globalConfig.allow_routes.some((v) => testRoutePath(v, path));
+    return globalConfig.allow_routes.some((v) => testComplexRoutePath(v, path));
 }
 
 export { matchAllowRoute };

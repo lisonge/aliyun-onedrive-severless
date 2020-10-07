@@ -2,7 +2,7 @@
  * @Date: 2020-10-01 15:28:35
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-07 15:11:31
+ * @LastEditTime: 2020-10-07 16:12:03
  */
 
 import OSS from 'ali-oss';
