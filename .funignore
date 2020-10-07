@@ -23,7 +23,6 @@ node_modules/**/Makefile
 node_modules/@types
 node_modules/typescript
 node_modules/ts-node
-node_modules/@iarna/toml
 
 /src
 !node_modules/**/src
@@ -42,7 +41,6 @@ node_modules/@iarna/toml
 /.gitignore
 /template.yml
 /deloy
-!node_modules/**/src
 /*.md
 /graph-auth-pages
 
