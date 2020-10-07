@@ -2,7 +2,7 @@
  * @Date: 2020-09-29 20:40:59
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-07 16:30:52
+ * @LastEditTime: 2020-10-07 16:40:35
  */
 
 import { Context, Request, Response, Callback } from './types';
@@ -32,7 +32,7 @@ export const handler = async (
     if (!matchAllowRoute(path)) {
         resp.setStatusCode(403);
         resp.send(
-            `${path} is not allow path \n allow routes should be :\n ${globalConfig.allow_routes.join(
+            `${path} is not allow path \n allow routes should be :\n${globalConfig.allow_routes.join(
                 '\n'
             )}`
         );
