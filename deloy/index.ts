@@ -2,7 +2,7 @@
  * @Date: 2020-10-03 20:59:04
  * @LastEditors: lisonge
  * @Author: lisonge
- * @LastEditTime: 2020-10-07 14:55:27
+ * @LastEditTime: 2020-10-07 15:42:08
  */
 
 import { promises as fs, readFileSync } from 'fs';
@@ -44,18 +44,23 @@ if (process.argv.includes('--authorization_code')) {
 // '';
 
 const config = TOML.parse(readFileSync('./config.toml', 'utf-8')) as {
-    region: string;
+    accessKey_id: string;
+    accessKey_secret: string;
+    account_id: string;
+    allow_routes: string[];
+    author: string;
     bucket: string;
-    oauthFileName: string;
     client_id: string;
     client_secret: string;
+    oauth_file_name: string;
     redirect_uri: string;
+    region: string;
 };
 
 let {
     region,
     bucket,
-    oauthFileName,
+    oauth_file_name,
     client_id,
     client_secret,
     redirect_uri,
@@ -144,7 +149,7 @@ async function main() {
         await client.putBucket(bucket);
     } catch {}
     client.useBucket(bucket);
-    await client.put(oauthFileName, bf);
+    await client.put(oauth_file_name, bf);
 
     const envText: string[] = [];
     for (const k in funToolEnv) {
