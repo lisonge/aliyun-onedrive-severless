@@ -5,9 +5,9 @@ redirect_uri = "https://lisonge.github.io/aliyun-onedrive-severless/"
 region = "cn-hongkong"
 bucket = "severless-oneindex-a9f5f7"
 oauth_file_name = "Microsoft-Graph-Auth.json"
-accessKey_id = "LTAI4FyEEoXGFeQKJL7326NN"
-accessKey_secret = "oLQ8YdTejhznJItuFNnh0UlZ7SHtDd"
-account_id = "1887623261562936"
+accessKey_id = ""
+accessKey_secret = ""
+account_id = ""
 allow_routes = [
   "/v1.0/me/drive",
   "/v1.0/me/drive/root/children",
