@@ -5,7 +5,7 @@
  * @LastEditTime: 2020-10-07 13:37:11
 -->
 
-# aliyun-onedrive-severless
+# aliyun-onedrive-severless 该项目正在升级,以更简单规范的方式去实现
 
 阿里云函数版 ondrive-index **后端代理访问**
 
